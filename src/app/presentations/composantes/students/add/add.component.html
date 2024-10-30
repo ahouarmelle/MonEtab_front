@@ -1,0 +1,280 @@
+<body class="bg-gray-100 font-sans antialiased">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-800 text-white flex flex-col justify-between">
+      <div class="p-6">
+        <h2 class="text-3xl font-semibold text-center mb-8">Mon Etab</h2>
+        <nav>
+          <ul>
+            <li class="mb-4">
+              <a href="/" class="hover:text-gray-400">Tableau de bord</a>
+            </li>
+            <li class="mb-4">
+              <a
+                href="/students/index"
+                class="text-blue-400 hover:text-blue-500 font-medium"
+                >Élèves</a
+              >
+            </li>
+            <li class="mb-4">
+              <a href="/teachers/index" class="hover:text-gray-400">Professeurs</a>
+            </li>
+            <li class="mb-4">
+              <a href="/users/index" class="hover:text-gray-400">Utilisateurs</a>
+            </li>
+            <li class="mb-4">
+              <a href="#" class="hover:text-gray-400">Rapport</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="p-6">
+        <a
+          href="#"
+          class="text-gray-400 hover:text-white flex items-center justify-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7 10V4a3 3 0 016 0v6a3 3 0 11-6 0z"
+              clip-rule="evenodd"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M5 9a2 2 0 100-4 2 2 0 000 4zm10-2a2 2 0 110 4 2 2 0 010-4zm-2 8v2a3 3 0 01-6 0v-2a2 2 0 11-4 0v2a5 5 0 0010 0v-2a2 2 0 11-4 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Déconnexion
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6">
+      <a
+        href="students/index"
+        class="text-gray-500 hover:text-gray-700 flex items-center mb-6"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        Retour
+      </a>
+      <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold mb-6 text-center">
+          Ajouter un élève
+        </h1>
+        <form [formGroup]="formAddStudent" action="#" method="POST" class="grid grid-cols-2 gap-6">
+          <!-- Champ Nom -->
+          <div>
+            <label for="nom" class="block text-sm font-medium text-gray-700"
+              >Nom</label
+            >
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              formControlName="nom"
+              [class.is-invalid]="isInvalidInput(formAddStudent.controls['nom'])"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <span *ngIf="isInvalidInput(formAddStudent.controls['nom'])">
+              <ng-container *ngIf="formAddStudent.controls['nom'].hasError('required')">
+                Le champ ne doit pas être vide
+              </ng-container>
+            </span>
+            <span *ngIf="isInvalidInput(formAddStudent.controls['nom'])">
+              <ng-container *ngIf="formAddStudent.controls['nom'].hasError('minLength')">
+                Le nombre de caractére supérieur ou égale à 10
+              </ng-container>
+            </span>
+          </div>
+          <!-- Champ Prénom -->
+          <div>
+            <label
+              for="prenom"
+              class="block text-sm font-medium text-gray-700"
+              >Prénom</label
+            >
+            <input
+              type="text"
+              id="prenom"
+              name="prenom"
+              formControlName="prenom"
+              [class.is-invalid]="isInvalidInput(formAddStudent.controls['prenom'])"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <span *ngIf="isInvalidInput(formAddStudent.controls['prenom'])">
+              <ng-container *ngIf="formAddStudent.controls['prenom'].hasError('required')">
+                Le champ ne doit pas être vide
+              </ng-container>
+            </span>
+          </div>
+          <!-- Champ Genre -->
+          <div class="col-span-2">
+            <label class="block text-sm font-medium text-gray-700"
+              >Genre</label
+            >
+            <div class="mt-1 flex items-center">
+              <input
+                type="radio"
+                id="homme"
+                formControlName="genre"
+                name="genre"
+                value="homme"
+                class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+              />
+              <label
+                for="homme"
+                class="ml-3 block text-sm font-medium text-gray-700"
+                >Homme</label
+              >
+              <input
+                type="radio"
+                id="femme"
+                formControlName="genre"
+                name="genre"
+                value="femme"
+                class="ml-6 h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+              />
+              <label
+                for="femme"
+                class="ml-3 block text-sm font-medium text-gray-700"
+                >Femme</label
+              >
+            </div>
+          </div>
+          <!-- Champ Matricule -->
+          <div>
+            <label
+              for="matricule"
+              class="block text-sm font-medium text-gray-700"
+              >Matricule</label
+            >
+            <input
+              type="text"
+              id="matricule"
+              name="matricule"
+              formControlName="matricule"
+              [class.is-invalid]="isInvalidInput(formAddStudent.controls['matricule'])"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <span *ngIf="isInvalidInput(formAddStudent.controls['matricule'])">
+              <ng-container *ngIf="formAddStudent.controls['matricule'].hasError('required')">
+                Le champ ne doit pas être vide
+              </ng-container>
+            </span>
+          </div>
+          <!-- Champ Date de Naissance -->
+          <div>
+            <label
+              for="date_naissance"
+              class="block text-sm font-medium text-gray-700"
+              >Date de naissance</label
+            >
+            <input
+              type="date"
+              id="date_naissance"
+              name="date_naissance"
+              formControlName="date_naissance"
+              placeholder="/ /"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <!-- Champ Classe -->
+          <div>
+            <label
+              for="classe"
+              class="block text-sm font-medium text-gray-700"
+              >Classe</label
+            >
+            <select
+              id="classe"
+              name="classe"
+              value="classe"
+              formControlName="classe"
+              class="mt-1 block w-full p-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+
+              <option value="classe">Sélectionner une classe</option>
+              <option *ngFor="let item of classe">{{item.name}}</option>
+            </select>
+          </div>
+          <!-- Champ Téléphone -->
+          <div>
+            <label
+              for="telephone"
+              class="block text-sm font-medium text-gray-700"
+              >Téléphone</label
+            >
+            <input
+              type="text"
+              id="telephone"
+              name="telephone"
+              formControlName="telephone"
+              [class.is-invalid]="isInvalidInput(formAddStudent.controls['telephone'])"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <span *ngIf="isInvalidInput(formAddStudent.controls['telephone'])">
+              <ng-container *ngIf="formAddStudent.controls['telephone'].hasError('required')">
+                Le champ ne doit pas être vide
+              </ng-container>
+            </span>
+          </div>
+          <!-- Champ Ville -->
+          <div>
+            <label for="ville" class="block text-sm font-medium text-gray-700"
+              >Ville</label
+            >
+            <input
+              type="text"
+              id="ville"
+              name="ville"
+              formControlName="ville"
+              [class.is-invalid]="isInvalidInput(formAddStudent.controls['ville'])"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+            <span *ngIf="isInvalidInput(formAddStudent.controls['ville'])">
+              <ng-container *ngIf="formAddStudent.controls['ville'].hasError('required')">
+                Le champ ne doit pas être vide
+              </ng-container>
+            </span>
+          </div>
+          <!-- Boutons -->
+          <div class="col-span-2 flex justify-center space-x-4">
+            <button
+              type="reset"
+              class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Enregistrer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
